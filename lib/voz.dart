@@ -35,63 +35,59 @@ class _vozState extends State<voz>{
                           ])),
                   Padding(
                     padding: EdgeInsets.symmetric(
-                        horizontal: 00.0, vertical: 15.0),
+                        horizontal: 00.0, vertical: 40.0),
                     child: Container(
-                      height: MediaQuery.of(context).size.height * 0.12,
+                      height: MediaQuery.of(context).size.height * 0.18,
                       width: MediaQuery.of(context).size.width * 1,
-                      decoration: BoxDecoration(
-                          color: Colors.green,
-                          borderRadius: BorderRadius.circular(20)),
-                      child: RaisedButton(
-                        disabledColor: Colors.grey,
-                        color: Colors.green,
-                        onPressed: (){
+                      child: FloatingActionButton.extended(
+                        heroTag: Text('Dictar por voz2'),
+                        label: Text('Dictar'),
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.green,
+                        icon: Icon(
+                          Icons.mic,
+                          size: 70.0,
+                        ),
+                        onPressed: () {
                           Navigator.of(context).push(
                             MaterialPageRoute<void>(
                               builder: (context) => voz(),
                             ),
                           );
                         },
-                        child: Text(
-                          "Dictar por voz",
-                          style: TextStyle(
-                              color: Colors.white, fontSize: 22),
-                        ),
                       ),
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(
-                        horizontal: 00.0, vertical: 15.0),
+                        horizontal: 00.0, vertical: 0.0),
                     child: Container(
-                      height: MediaQuery.of(context).size.height * 0.12,
+                      height: MediaQuery.of(context).size.height * 0.18,
                       width: MediaQuery.of(context).size.width * 1,
-                      decoration: BoxDecoration(
-                          color: Colors.green,
-                          borderRadius: BorderRadius.circular(20)),
-                      child: RaisedButton(
-                        disabledColor: Colors.grey,
-                        color: Colors.white,
-                        onPressed: (){
-                          Navigator.of(context).push(
-                            MaterialPageRoute<void>(
-                              builder: (context) => voz(),
-                            ),
-                          );
-                        },
-                        child: Text(
-                          "Reproducir",
-                          style: TextStyle(
-                              color: Colors.black, fontSize: 22),
+                      child: FloatingActionButton.extended(
+                        heroTag: Text('Reproducir'),
+                        label: Text('Reproducir'),
+                        foregroundColor: Colors.black,
+                        backgroundColor: Colors.blueGrey,
+                        icon: Icon(
+                          Icons.headset_mic,
+                          size: 70.0,
                         ),
+                        onPressed: () {},
                       ),
                     ),
+                  ),
+                  SizedBox(
+                    height: 71,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Expanded(
-                        child: RaisedButton(
+                        child: Container(
+                          height: MediaQuery.of(context).size.height * 0.25,
+                          width: MediaQuery.of(context).size.width * 1,
+                          child: RaisedButton(
                           disabledColor: Colors.grey,
                           color: Colors.red,
                           onPressed: (){
@@ -107,30 +103,34 @@ class _vozState extends State<voz>{
                                 color: Colors.white, fontSize: 22),
                           ),
                         ),
+                        ),
                       ),
                       Expanded(
-                        child: RaisedButton(
-                          disabledColor: Colors.grey,
-                          color: Colors.green,
-                          onPressed: (){
-                            Navigator.of(context).push(
-                              MaterialPageRoute<void>(
-                                builder: (context) => voz(),
-                              ),
-                            );
-                          },
-                          child: Text(
-                            "Aceptar",
-                            style: TextStyle(
-                                color: Colors.white, fontSize: 22),
+                        child: Container(
+                          height: MediaQuery.of(context).size.height * 0.25,
+                          width: MediaQuery.of(context).size.width * 1,
+                          child: RaisedButton(
+                            disabledColor: Colors.grey,
+                            color: Colors.green,
+                            onPressed: (){
+                              Navigator.of(context).push(
+                                MaterialPageRoute<void>(
+                                  builder: (context) => voz(),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              "Aceptar",
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 22),
+                            ),
                           ),
                         ),
                       ),
                     ],
                   ),
                  ]
-            )
-        )
-    );
+            ),
+        ),);
   }
 }

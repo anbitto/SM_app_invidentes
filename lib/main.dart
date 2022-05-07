@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sm_app_invidente/texto.dart';
 import 'package:sm_app_invidente/voz.dart';
 
 void main() {
@@ -62,24 +63,22 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Container(
                 height: MediaQuery.of(context).size.height * 0.12,
                 width: MediaQuery.of(context).size.width * 1,
-                decoration: BoxDecoration(
-                    color: Colors.green,
-                    borderRadius: BorderRadius.circular(20)),
-                child: RaisedButton(
-                  disabledColor: Colors.grey,
-                  color: Colors.green,
-                  onPressed: (){
+                child: FloatingActionButton.extended(
+                  heroTag: Text('Dictar por voz'),
+                  label: Text('Dictar por voz'),
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.green,
+                  icon: Icon(
+                    Icons.record_voice_over,
+                    size: 70.0,
+                  ),
+                  onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute<void>(
                         builder: (context) => voz(),
                       ),
                     );
                   },
-                  child: Text(
-                    "Dictar por voz",
-                    style: TextStyle(
-                        color: Colors.white, fontSize: 22),
-                  ),
                 ),
               ),
             ),
@@ -89,18 +88,22 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Container(
                 height: MediaQuery.of(context).size.height * 0.12,
                 width: MediaQuery.of(context).size.width * 1,
-                decoration: BoxDecoration(
-                    color: Colors.green,
-                    borderRadius: BorderRadius.circular(20)),
-                child: RaisedButton(
-                  disabledColor: Colors.grey,
-                  color: Colors.green,
-                  onPressed: (){},
-                  child: Text(
-                    "Reconociemiento de texto en imagen",
-                    style: TextStyle(
-                        color: Colors.white, fontSize: 22),
+                child: FloatingActionButton.extended(
+                  heroTag: Text('Reconocimiento de texto'),
+                  label: Text('Reconocimiento de texto'),
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.green,
+                  icon: Icon(
+                    Icons.image,
+                    size: 70.0,
                   ),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (context) => voz(),
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
@@ -110,39 +113,47 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Container(
                 height: MediaQuery.of(context).size.height * 0.12,
                 width: MediaQuery.of(context).size.width * 1,
-                decoration: BoxDecoration(
-                    color: Colors.green,
-                    borderRadius: BorderRadius.circular(20)),
-                child: RaisedButton(
-                  disabledColor: Colors.grey,
-                  color: Colors.green,
-                  onPressed: (){},
-                  child: Text(
-                    "Texto por teclado",
-                    style: TextStyle(
-                        color: Colors.white, fontSize: 22),
+                child: FloatingActionButton.extended(
+                  heroTag: Text('Texto por teclado'),
+                  label: Text('Texto por teclado'),
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.green,
+                  icon: Icon(
+                    Icons.keyboard,
+                    size: 70.0,
                   ),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (context) => voz(),
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
             Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: 00.0, vertical: 0.0),
+                  horizontal: 00.0, vertical: 00.0),
               child: Container(
                 height: MediaQuery.of(context).size.height * 0.12,
                 width: MediaQuery.of(context).size.width * 1,
-                decoration: BoxDecoration(
-                    color: Colors.green,
-                    borderRadius: BorderRadius.circular(20)),
-                child: RaisedButton(
-                  disabledColor: Colors.grey,
-                  color: Colors.green,
-                  onPressed: (){},
-                  child: Text(
-                    "Extra?",
-                    style: TextStyle(
-                        color: Colors.white, fontSize: 22),
+                child: FloatingActionButton.extended(
+                  heroTag: Text('Reconocimiento por txt'),
+                  label: Text('Reconocimiento por txt'),
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.green,
+                  icon: Icon(
+                    Icons.text_snippet_outlined,
+                    size: 70.0,
                   ),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (context) => texto(),
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
