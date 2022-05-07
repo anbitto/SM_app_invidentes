@@ -13,7 +13,7 @@ class ApiWrapper {
 
   // factory ApiWrapper() => _instance ?? ApiWrapper._internal();
 
-  final String endpoint = "https://texttospeech.googleapis.com";
+  final String endpoint = "texttospeech.googleapis.com";
 
   final String route =
       "v1/text:synthesize?key=AIzaSyAKame4JnmCtac6GazF_aUv5GZpsjCbpPE";
@@ -37,22 +37,43 @@ class ApiWrapper {
 
   Future<String> TTSApiCall(String file_path) async {
     var frase = getFrase();
+    print(endpoint + route);
+
+    var user = {};
+
+    var resBody = {};
+    resBody["languageCode"] = "es-ES";
+    resBody["name"] = "es-ES-Standard-A";
+    resBody["ssmlGender"] = "FEMALE";
+    user["voice"] = resBody;
+
+    resBody = {};
+    resBody["text"] = frase;
+    user["input"] = resBody;
+
+    resBody = {};
+    resBody["audioEncoding"] = "MP3";
+    user["audioConfig"] = resBody;
+
+    var str = json.encode(user);
+    print(str);
 
     http.Response response = await http.post(
       Uri.http(endpoint, route),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: jsonEncode(<String, dynamic>{
-        "input": {"text": frase},
-        "voice": {
-          "languageCode": "es-ES",
-          // "name": "en-GB-Standard-A",
-          "name": "es-ES-Standard-A",
-          "ssmlGender": "FEMALE"
-        },
-        "audioConfig": {"audioEncoding": "MP3"}
-      }),
+      // body: jsonEncode(<String, <String, String>>{
+      //   "input": {"text": frase},
+      //   "voice": {
+      //     "languageCode": "es-ES",
+      //     // "name": "en-GB-Standard-A",
+      //     "name": "es-ES-Standard-A",
+      //     "ssmlGender": "FEMALE"
+      //   },
+      //   "audioConfig": {"audioEncoding": "MP3"}
+      // }),
+      body: jsonEncode(user),
     );
 
     if (response.statusCode == 200) {
