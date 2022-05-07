@@ -6,12 +6,12 @@ import 'package:sm_app_invidente/main.dart';
 import 'package:sm_app_invidente/preview.dart';
 
 
-class texto extends StatefulWidget{
+class imagen extends StatefulWidget{
   @override
-  _textoState createState() => _textoState();
+  _imagenState createState() => _imagenState();
 }
 
-class _textoState extends State<texto>{
+class _imagenState extends State<imagen>{
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -31,7 +31,7 @@ class _textoState extends State<texto>{
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text("Reconocimiento por txt",
+                        Text("Reconocimiento por imagen",
                             style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700)),
                       ])),
               Padding(

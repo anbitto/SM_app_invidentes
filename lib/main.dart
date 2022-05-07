@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sm_app_invidente/imagen.dart';
+import 'package:sm_app_invidente/teclado.dart';
 import 'package:sm_app_invidente/texto.dart';
 import 'package:sm_app_invidente/voz.dart';
 
@@ -100,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute<void>(
-                        builder: (context) => voz(),
+                        builder: (context) => imagen(),
                       ),
                     );
                   },
@@ -125,7 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute<void>(
-                        builder: (context) => voz(),
+                        builder: (context) => teclado(),
                       ),
                     );
                   },
