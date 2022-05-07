@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:sm_app_invidente/braille.dart';
 import 'package:sm_app_invidente/main.dart';
+import 'package:sm_app_invidente/globals.dart' as globals;
 
 
 class preview extends StatefulWidget{
@@ -41,7 +42,7 @@ class _previewState extends State<preview> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text("Texto",
+                        Text(globals.texto_teclado,
                             style: TextStyle(fontSize: 20)),
                       ])),
               Row(

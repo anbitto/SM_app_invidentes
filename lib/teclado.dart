@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:sm_app_invidente/main.dart';
 import 'package:sm_app_invidente/preview.dart';
+import 'package:sm_app_invidente/globals.dart' as globals;
 
 
 class teclado extends StatefulWidget{
@@ -12,7 +13,20 @@ class teclado extends StatefulWidget{
 }
 
 class _tecladoState extends State<teclado>{
-  var description = TextEditingController();
+  var texto = TextEditingController();
+  String guardado = "";
+  final _formKeyTexto = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    texto.dispose();
+    super.dispose();
+  }
+
+  void guardarTexto(String texto){
+    guardado = texto;
+    globals.texto_teclado=texto;
+  }
 
   @override
   Widget build(BuildContext context){
@@ -33,7 +47,16 @@ class _tecladoState extends State<teclado>{
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text("Escribe tuu texto",
+                        Text("Escribe tu texto",
+                            style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700)),
+                      ])),
+              Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(globals.texto_teclado,
                             style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700)),
                       ])),
               Padding(
@@ -41,7 +64,7 @@ class _tecladoState extends State<teclado>{
                     horizontal: 30.0, vertical: 00.0),
                 child: TextFormField(
                   maxLines: null,
-                  controller: description,
+                  controller: texto,
                   decoration: InputDecoration(
                     hintText: 'Texto',
                   ),
@@ -76,6 +99,7 @@ class _tecladoState extends State<teclado>{
                       disabledColor: Colors.grey,
                       color: Colors.green,
                       onPressed: () {
+                        guardarTexto(texto.text);
                         Navigator.of(context).push(
                           MaterialPageRoute<void>(
                             builder: (context) => preview(),
@@ -93,3 +117,4 @@ class _tecladoState extends State<teclado>{
             ]));
   }
 }
+
