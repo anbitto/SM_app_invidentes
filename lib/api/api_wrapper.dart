@@ -35,7 +35,7 @@ class ApiWrapper {
     return file.writeAsString(data);
   }
 
-  Future<String> registrarUsuario(String file_path) async {
+  Future<String> TTSApiCall(String file_path) async {
     var frase = getFrase();
 
     http.Response response = await http.post(
