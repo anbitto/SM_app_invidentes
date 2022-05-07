@@ -33,7 +33,7 @@ class _tecladoState extends State<teclado>{
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text("Escribe tu texto",
+                        Text("Escribe tuu texto",
                             style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700)),
                       ])),
               Padding(
