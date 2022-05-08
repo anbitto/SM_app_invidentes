@@ -136,7 +136,7 @@ class _ApiWrapperAppState extends State<ApiWrapperUI> {
   final player = AudioPlayer();
 
   Future<String> getFrase() async {
-    String datafile = await rootBundle.loadString('frases/frase.txt');
+    String datafile = await rootBundle.loadString('textos/frase.txt');
     return datafile;
   }
 
