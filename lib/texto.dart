@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:sm_app_invidente/main.dart';
 import 'package:sm_app_invidente/preview.dart';
+import 'package:sm_app_invidente/globals.dart' as globals;
 
 
 class texto extends StatefulWidget{
@@ -12,6 +14,17 @@ class texto extends StatefulWidget{
 }
 
 class _textoState extends State<texto>{
+
+  void _txt() async {
+    final result = await FilePicker.platform.pickFiles(
+        allowMultiple: false,
+        type: FileType.custom,
+        allowedExtensions: ['txt', 'pdf']
+    );
+    if (result == null) return;
+    globals.pathTxt=result.files.first.path;
+  }
+
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -22,93 +35,86 @@ class _textoState extends State<texto>{
           style: TextStyle(fontSize: 25.0, fontFamily: 'Glacial Indifference'),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-            children: <Widget>[
+        body: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
               Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text("Reconocimiento por txt",
+                        Text("Reconocimiento por TXT",
                             style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700)),
                       ])),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: 00.0, vertical: 40.0),
-                child: Container(
-                  height: MediaQuery.of(context).size.height * 0.18,
-                  width: MediaQuery.of(context).size.width * 1,
-                  child: FloatingActionButton.extended(
-                    heroTag: Text('Insertar fichero'),
-                    label: Text('Insertar fichero'),
-                    foregroundColor: Colors.white,
-                    backgroundColor: Colors.green,
-                    icon: Icon(
-                      Icons.text_snippet_outlined,
-                      size: 70.0,
+              Row(
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.18,
+                    width: MediaQuery.of(context).size.width * 1,
+                    child: FloatingActionButton.extended(
+                      heroTag: const Text('Seleccionar txt'),
+                      label: const Text(
+                        "Seleccionar txt",
+                        style: const TextStyle(color: Colors.white, fontSize: 30),
+                      ),
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.green,
+                      icon: const Icon(
+                        Icons.text_snippet_outlined,
+                        size: 70.0,
+                      ),
+                      onPressed: () {
+                        _txt();
+                      },
                     ),
-                    onPressed: () {
-                    },
                   ),
-                ),
-              ),
-
-              SizedBox(
-                height: 230,
+                ],
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(
-                    child: Container(
-                      height: MediaQuery.of(context).size.height * 0.25,
-                      width: MediaQuery.of(context).size.width * 1,
-                      child: RaisedButton(
-                        disabledColor: Colors.grey,
-                        color: Colors.red,
-                        onPressed: (){
-                          Navigator.of(context).push(
-                            MaterialPageRoute<void>(
-                              builder: (context) => MyApp(),
-                            ),
-                          );
-                        },
-                        child: Text(
-                          "Volver",
-                          style: TextStyle(
-                              color: Colors.white, fontSize: 22),
-                        ),
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ButtonTheme(
+                    height: MediaQuery.of(context).size.height * 0.2,
+                    minWidth: MediaQuery.of(context).size.width * 0.5,
+                    child: RaisedButton(
+                      disabledColor: Colors.grey,
+                      color: Colors.red,
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute<void>(
+                            builder: (context) => MyApp(),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        "Volver",
+                        style: const TextStyle(color: Colors.white, fontSize: 22),
                       ),
                     ),
                   ),
-                  Expanded(
-                    child: Container(
-                      height: MediaQuery.of(context).size.height * 0.25,
-                      width: MediaQuery.of(context).size.width * 1,
-                      child: RaisedButton(
-                        disabledColor: Colors.grey,
-                        color: Colors.green,
-                        onPressed: (){
-                          Navigator.of(context).push(
-                            MaterialPageRoute<void>(
-                              builder: (context) => preview(),
-                            ),
-                          );
-                        },
-                        child: Text(
-                          "Aceptar",
-                          style: TextStyle(
-                              color: Colors.white, fontSize: 22),
-                        ),
+                  ButtonTheme(
+                    height: MediaQuery.of(context).size.height * 0.2,
+                    minWidth: MediaQuery.of(context).size.width * 0.5,
+                    child: RaisedButton(
+                      disabledColor: Colors.grey,
+                      color: Colors.green,
+                      onPressed: () {
+                        globals.resultadoTexto="Vengo del Reconocimiento por txt.";
+                        Navigator.of(context).push(
+                          MaterialPageRoute<void>(
+                            builder: (context) => preview(),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        "Aceptar",
+                        style: TextStyle(color: Colors.white, fontSize: 22),
                       ),
                     ),
                   ),
                 ],
               ),
-            ]
-        ),
-      ),);
+            ]));
   }
 }

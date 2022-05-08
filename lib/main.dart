@@ -3,6 +3,9 @@ import 'package:sm_app_invidente/imagen.dart';
 import 'package:sm_app_invidente/teclado.dart';
 import 'package:sm_app_invidente/texto.dart';
 import 'package:sm_app_invidente/voz.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:open_file/open_file.dart';
+
 
 void main() {
   runApp(const MyApp());
