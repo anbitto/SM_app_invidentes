@@ -59,21 +59,21 @@ class _MyHomePageState extends State<MyHomePage> {
           style: TextStyle(fontSize: 25.0, fontFamily: 'Glacial Indifference'),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: 00.0, vertical: 70.0),
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.12,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.15,
                 width: MediaQuery.of(context).size.width * 1,
                 child: FloatingActionButton.extended(
                   heroTag: Text('Dictar por voz'),
                   label: Text('Dictar por voz'),
                   foregroundColor: Colors.white,
                   backgroundColor: Colors.green,
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.record_voice_over,
                     size: 70.0,
                   ),
@@ -86,19 +86,20 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                 ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: 00.0, vertical: 00.0),
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.12,
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.15,
                 width: MediaQuery.of(context).size.width * 1,
                 child: FloatingActionButton.extended(
                   heroTag: Text('Reconocimiento de texto'),
                   label: Text('Reconocimiento de texto'),
                   foregroundColor: Colors.white,
                   backgroundColor: Colors.green,
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.image,
                     size: 70.0,
                   ),
@@ -111,19 +112,20 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                 ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: 00.0, vertical: 70.0),
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.12,
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.15,
                 width: MediaQuery.of(context).size.width * 1,
                 child: FloatingActionButton.extended(
                   heroTag: Text('Texto por teclado'),
                   label: Text('Texto por teclado'),
                   foregroundColor: Colors.white,
                   backgroundColor: Colors.green,
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.keyboard,
                     size: 70.0,
                   ),
@@ -136,19 +138,20 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                 ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: 00.0, vertical: 00.0),
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.12,
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.15,
                 width: MediaQuery.of(context).size.width * 1,
                 child: FloatingActionButton.extended(
                   heroTag: Text('Reconocimiento por txt'),
                   label: Text('Reconocimiento por txt'),
                   foregroundColor: Colors.white,
                   backgroundColor: Colors.green,
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.text_snippet_outlined,
                     size: 70.0,
                   ),
@@ -161,10 +164,36 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                 ),
               ),
-            ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.15,
+                width: MediaQuery.of(context).size.width * 1,
+                child: FloatingActionButton.extended(
+                  heroTag: Text('Problema 3'),
+                  label: Text('Problema 3'),
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.green,
+                  icon: const Icon(
+                    Icons.image,
+                    size: 70.0,
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (context) => texto(),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
           ],
         ),
-      ),
     );
   }
 }
