@@ -1,11 +1,15 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
+import 'dart:typed_data';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:sm_app_invidente/main.dart';
 import 'package:sm_app_invidente/preview.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:sm_app_invidente/globals.dart' as globals;
+import 'package:path_provider/path_provider.dart';
 
 
 class texto extends StatefulWidget{
@@ -15,14 +19,22 @@ class texto extends StatefulWidget{
 
 class _textoState extends State<texto>{
 
+
   void _txt() async {
     final result = await FilePicker.platform.pickFiles(
         allowMultiple: false,
         type: FileType.custom,
+        withData:true,
         allowedExtensions: ['txt', 'pdf']
     );
     if (result == null) return;
     globals.pathTxt=result.files.first.path;
+    PlatformFile file = result.files.first;
+    print(file.bytes);
+    Uint8List? bytes = file.bytes;
+    String s = new String.fromCharCodes(bytes!);
+    print(s);
+    globals.resultadoTexto=s;
   }
 
   @override
@@ -100,7 +112,8 @@ class _textoState extends State<texto>{
                       disabledColor: Colors.grey,
                       color: Colors.green,
                       onPressed: () {
-                        globals.resultadoTexto="Vengo del Reconocimiento por txt.";
+                        print("HOLA");
+                        //globals.resultadoTexto="Vengo del Reconocimiento por txt.";
                         Navigator.of(context).push(
                           MaterialPageRoute<void>(
                             builder: (context) => preview(),

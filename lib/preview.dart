@@ -45,7 +45,7 @@ class _previewState extends State<preview> {
     if (globals.resultadoTexto != null) {
       return Align(
           alignment: Alignment.center,
-          child: Text(globals.resultadoTexto));
+          child: Text(globals.resultadoTexto!));
     } else {
       return Align(
         alignment: Alignment.center,
