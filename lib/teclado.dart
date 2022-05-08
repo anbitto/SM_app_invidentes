@@ -100,6 +100,7 @@ class _tecladoState extends State<teclado>{
                       color: Colors.green,
                       onPressed: () {
                         guardarTexto(texto.text);
+                        globals.resultadoTexto=texto.text;
                         Navigator.of(context).push(
                           MaterialPageRoute<void>(
                             builder: (context) => preview(),

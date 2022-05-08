@@ -27,15 +27,27 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  path_provider: ^2.0.9
   flutter:
     sdk: flutter
 
+<<<<<<< HEAD
   audioplayers: ^0.20.1
+=======
+
+
+>>>>>>> 436272337eb899a77fcc00f3c651944d3bc3531d
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   http: ^0.13.4
+<<<<<<< HEAD
   convert: ^3.0.1
+=======
+  file_picker: ^4.5.1
+  open_file: ^3.2.1
+  image_picker: ^0.8.5
+>>>>>>> 436272337eb899a77fcc00f3c651944d3bc3531d
 
 dev_dependencies:
   flutter_test:

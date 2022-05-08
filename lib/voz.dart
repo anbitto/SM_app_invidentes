@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:sm_app_invidente/main.dart';
 import 'package:sm_app_invidente/preview.dart';
+import 'package:sm_app_invidente/globals.dart' as globals;
 
 
 class voz extends StatefulWidget{
@@ -105,6 +106,7 @@ class _vozState extends State<voz> {
                       disabledColor: Colors.grey,
                       color: Colors.green,
                       onPressed: () {
+                        globals.resultadoTexto="Vengo del Dictar";
                         Navigator.of(context).push(
                           MaterialPageRoute<void>(
                             builder: (context) => preview(),

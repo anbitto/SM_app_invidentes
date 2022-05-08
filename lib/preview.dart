@@ -1,9 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:sm_app_invidente/braille.dart';
 import 'package:sm_app_invidente/main.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:open_file/open_file.dart';
 import 'package:sm_app_invidente/globals.dart' as globals;
 
 
@@ -13,6 +17,43 @@ class preview extends StatefulWidget{
 }
 
 class _previewState extends State<preview> {
+
+  Widget _setImageView() {
+    if (globals.pathImagen != null) {
+      return Image.file(File(globals.pathImagen));
+    } else {
+      return Align(
+        alignment: Alignment.center,
+        child: Text("Por favor, seleccione una imagen"),
+      );
+    }
+  }
+
+  Widget _setImageView2() {
+    var imagen = File(globals.imagenCamara.toString());
+    if (globals.imagenCamara != null) {
+      return Image.file(imagen);
+    } else {
+      return Align(
+        alignment: Alignment.center,
+        child: Text("Por favor, seleccione una imagen"),
+      );
+    }
+  }
+
+  Widget _showText() {
+    if (globals.resultadoTexto != null) {
+      return Align(
+          alignment: Alignment.center,
+          child: Text(globals.resultadoTexto!));
+    } else {
+      return Align(
+        alignment: Alignment.center,
+        child: Text("No se ha reconocido texto"),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,12 +80,21 @@ class _previewState extends State<preview> {
               Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
                   child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(globals.texto_teclado,
-                            style: TextStyle(fontSize: 20)),
-                      ])),
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.only(top: 25),
+                        height: MediaQuery.of(context).size.height * 0.31,
+                        width: MediaQuery.of(context).size.width * 0.90,
+                        decoration: BoxDecoration(
+                            color: Colors.lightGreen[50],
+                            borderRadius: BorderRadius.circular(10)),
+                        child: _showText(),
+                      )
+                    ],
+                  ),),
+
               Row(
                 children: [
                   SizedBox(
