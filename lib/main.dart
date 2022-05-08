@@ -6,6 +6,7 @@ import 'package:sm_app_invidente/voz.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:open_file/open_file.dart';
 
+import 'package:sm_app_invidente/api/api_wrapper.dart';
 
 void main() {
   runApp(const MyApp());
@@ -47,7 +48,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -184,7 +184,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute<void>(
-                        builder: (context) => texto(),
+                        builder: (context) => ApiWrapperUI(),
                       ),
                     );
                   },
@@ -192,8 +192,8 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ],
           ),
-          ],
-        ),
+        ],
+      ),
     );
   }
 }
