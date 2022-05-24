@@ -166,32 +166,6 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.15,
-                width: MediaQuery.of(context).size.width * 1,
-                child: FloatingActionButton.extended(
-                  heroTag: Text('Problema 3'),
-                  label: Text('Problema 3'),
-                  foregroundColor: Colors.white,
-                  backgroundColor: Colors.green,
-                  icon: const Icon(
-                    Icons.image,
-                    size: 70.0,
-                  ),
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute<void>(
-                        builder: (context) => ApiWrapperUI(),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
         ],
       ),
     );

@@ -12,13 +12,10 @@ import 'dart:typed_data';
 
 class ApiWrapper {
   final player = AudioPlayer();
-  // static ApiWrapper _instance;
 
-  // ApiWrapper._internal() {
-  //   _instance = this;
-  // }
-
-  // factory ApiWrapper() => _instance ?? ApiWrapper._internal();
+  void stopPlayer() {
+    player.stop();
+  }
 
   Future<String> getFrase() async {
     String datafile = await rootBundle.loadString('frases/frase.txt');
@@ -32,8 +29,13 @@ class ApiWrapper {
     return file.writeAsString(data);
   }
 
-  Future<String> TTSApiCall(String file_path) async {
-    var frase = await getFrase();
+  void ttsApiCall(String textInput, bool readFromFile) async {
+    var frase = "";
+    if (readFromFile == true) {
+      frase = await getFrase();
+    } else {
+      frase = textInput;
+    }
 
     var user = {};
 
@@ -84,11 +86,9 @@ class ApiWrapper {
 
       // writeMP3(decoded);
 
-      return "";
     } else {
       print(response.statusCode.toString());
       print(response.body.toString());
-      return "Error";
     }
   }
 
