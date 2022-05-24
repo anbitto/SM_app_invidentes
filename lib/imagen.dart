@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:google_ml_kit/google_ml_kit.dart';
+
 import 'package:sm_app_invidente/main.dart';
 import 'package:sm_app_invidente/preview.dart';
 import 'package:file_picker/file_picker.dart';
@@ -15,34 +17,38 @@ class imagen extends StatefulWidget {
 }
 
 class _imagenState extends State<imagen> {
-  void _txt() async {
-    final result = await FilePicker.platform.pickFiles(
-        allowMultiple: false,
-        type: FileType.custom,
-        allowedExtensions: ['txt', 'pdf']);
-    if (result == null) return;
-    globals.pathTxt = result.files.first.path;
-  }
-
-  void _imagenGaleria(BuildContext context) async {
-    final result = await FilePicker.platform.pickFiles(
-        allowMultiple: false,
-        type: FileType.custom,
-        allowedExtensions: ['jpg', 'jpeg', 'png']);
-    if (result == null) return;
-    globals.pathImagen = result.files.first.path;
-  }
-
   PickedFile? imageFile = null;
 
-  void _foto(BuildContext context) async {
-    final pickedFile = await ImagePicker().getImage(
-      source: ImageSource.camera,
-    );
-    setState(() {
-      imageFile = pickedFile!;
-      globals.imagenCamara = pickedFile!;
-    });
+  void getImage(ImageSource source) async {
+    print("1");
+    try {
+      final pickedImage = await ImagePicker().pickImage(source: source);
+      if (pickedImage != null) {
+        print("2");
+        globals.textScanning = true;
+        //imageFile = pickedImage;
+        getRecognisedText(pickedImage);
+      }
+    } catch (e) {
+      globals.textScanning = false;
+      imageFile = null;
+      globals.resultadoTexto = "Error al escanear";
+    }
+  }
+
+  void getRecognisedText(XFile image) async {
+    print("3");
+    final inputImage = InputImage.fromFilePath(image.path);
+    final textDetector = GoogleMlKit.vision.textDetector();
+    RecognisedText recognisedText = await textDetector.processImage(inputImage);
+    await textDetector.close();
+    globals.resultadoTexto = "";
+    for (TextBlock block in recognisedText.blocks) {
+      for (TextLine line in block.lines) {
+        globals.resultadoTexto = globals.resultadoTexto! + line.text + "\n";
+      }
+    }
+    globals.textScanning = false;
   }
 
   @override
@@ -79,7 +85,8 @@ class _imagenState extends State<imagen> {
                         size: 70.0,
                       ),
                       onPressed: () {
-                        _imagenGaleria(context);
+                        //_imagenGaleria(context);
+                        getImage(ImageSource.gallery);
                       },
                     ),
                   ),
@@ -105,7 +112,7 @@ class _imagenState extends State<imagen> {
                         size: 70.0,
                       ),
                       onPressed: () {
-                        _foto(context);
+                        getImage(ImageSource.camera);
                       },
                     ),
                   ),
