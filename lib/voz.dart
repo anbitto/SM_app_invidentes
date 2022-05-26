@@ -35,7 +35,7 @@ class _FusionState extends State<voz> {
   bool isRecorderReady = false;
 
   Future<List<int>> _getAudioContent(String name) async {
-    final path = '/storage/emulated/0/Download/f1.wav';
+    final path = 'f1.wav';
     return File(path).readAsBytesSync().toList();
   }
 
@@ -107,7 +107,7 @@ class _FusionState extends State<voz> {
     await recorder.startRecorder(
       sampleRate: 44100,
       codec: codecObj,
-      toFile: '/storage/emulated/0/Download/f1.wav',
+      toFile: 'f1.wav',
     );
   }
 
@@ -173,7 +173,6 @@ class _FusionState extends State<voz> {
                           } else {
                             await record();
                           }
-                          setState(() {});
                         },
                       ),
                     ),
@@ -268,11 +267,11 @@ class _FusionState extends State<voz> {
                       color: Colors.green,
                       onPressed: () {
                         // globals.resultadoTexto = "Vengo del Dictar";
-                        // Navigator.of(context).push(
-                        //   MaterialPageRoute<void>(
-                        //     builder: (context) => preview(),
-                        //   ),
-                        // );
+                        Navigator.of(context).push(
+                          MaterialPageRoute<void>(
+                             builder: (context) => preview(),
+                           ),
+                         );
                       },
                       child: const Text(
                         "Aceptar",

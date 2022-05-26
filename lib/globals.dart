@@ -16,3 +16,5 @@ PickedFile? imagenCamara=null;
 String? resultadoTexto="No he leído nada";
 
 bool textScanning=false;
+
+//Variables globales

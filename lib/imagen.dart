@@ -19,12 +19,12 @@ class imagen extends StatefulWidget {
 class _imagenState extends State<imagen> {
   PickedFile? imageFile = null;
 
+
+  //Función para recoger la imagen de la galeria o de la camara
   void getImage(ImageSource source) async {
-    print("1");
     try {
       final pickedImage = await ImagePicker().pickImage(source: source);
       if (pickedImage != null) {
-        print("2");
         globals.textScanning = true;
         //imageFile = pickedImage;
         getRecognisedText(pickedImage);
@@ -36,8 +36,13 @@ class _imagenState extends State<imagen> {
     }
   }
 
+  //Aquí llamamos a la API de reconocimiento de texto
+  //a la cual le mandamos la imagen seleccionada por el
+  //usuario o la foto que acaba de hacer
+
+  //Nos guardamos el resultado final en nuestra variable
+  //resultado texto que enseñaremos en la siguiente pantalla
   void getRecognisedText(XFile image) async {
-    print("3");
     final inputImage = InputImage.fromFilePath(image.path);
     final textDetector = GoogleMlKit.vision.textDetector();
     RecognisedText recognisedText = await textDetector.processImage(inputImage);
@@ -51,6 +56,7 @@ class _imagenState extends State<imagen> {
     globals.textScanning = false;
   }
 
+  //Pantalla de reconocimiento por imágenes
   @override
   Widget build(BuildContext context) {
     return Scaffold(

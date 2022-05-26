@@ -28,6 +28,8 @@ class _tecladoState extends State<teclado>{
     globals.texto_teclado=texto;
   }
 
+  //Pantalla donde podemos escribir con el teclado
+  //el texto que queremos traducir a Braille
   @override
   Widget build(BuildContext context){
     return Scaffold(

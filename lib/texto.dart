@@ -20,6 +20,7 @@ class texto extends StatefulWidget{
 class _textoState extends State<texto>{
 
 
+  //Función para recuperar lo escrito en un txt/pdf
   void _txt() async {
     final result = await FilePicker.platform.pickFiles(
         allowMultiple: false,
@@ -37,6 +38,8 @@ class _textoState extends State<texto>{
     globals.resultadoTexto=s;
   }
 
+  //Pantalla "Extra" para también traducir a
+  //Braille lo escrito en un txt/pdf
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -56,7 +59,7 @@ class _textoState extends State<texto>{
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text("Reconocimiento por TXT",
+                        Text("TXT",
                             style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700)),
                       ])),
               Row(

@@ -37,11 +37,11 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   google_ml_kit: ^0.7.3
+  image_picker: ^0.8.5
   http: ^0.13.4
   convert: ^3.0.1
   file_picker: ^4.5.1
   open_file: ^3.2.1
-  image_picker: ^0.8.5
   flutter_sound: ^9.1.9
   permission_handler: ^9.2.0
 

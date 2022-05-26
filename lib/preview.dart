@@ -18,29 +18,8 @@ class preview extends StatefulWidget{
 
 class _previewState extends State<preview> {
 
-  Widget _setImageView() {
-    if (globals.pathImagen != null) {
-      return Image.file(File(globals.pathImagen));
-    } else {
-      return Align(
-        alignment: Alignment.center,
-        child: Text("Por favor, seleccione una imagen"),
-      );
-    }
-  }
-
-  Widget _setImageView2() {
-    var imagen = File(globals.imagenCamara.toString());
-    if (globals.imagenCamara != null) {
-      return Image.file(imagen);
-    } else {
-      return Align(
-        alignment: Alignment.center,
-        child: Text("Por favor, seleccione una imagen"),
-      );
-    }
-  }
-
+  //Función para ver el texto escrito reconocido
+  //Éste se enviará a "traducir" a Braille
   Widget _showText() {
     if (globals.resultadoTexto != null) {
       return Align(
@@ -54,6 +33,8 @@ class _previewState extends State<preview> {
     }
   }
 
+  //Pantalla donde se observa el texto escrito
+  //Con botón para traducir a Braille
   @override
   Widget build(BuildContext context) {
     return Scaffold(

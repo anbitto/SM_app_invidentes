@@ -3,16 +3,29 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:sm_app_invidente/main.dart';
+import 'package:sm_app_invidente/text2braille.dart';
 
-
-class braille extends StatefulWidget{
+class braille extends StatefulWidget {
   @override
   _brailleState createState() => _brailleState();
 }
 
 class _brailleState extends State<braille> {
+  final t2b = text2brailleState();
+  List<String> res = [];
   @override
   Widget build(BuildContext context) {
+    Future<List<String>> stringFuture = t2b.t2bApiCall();
+    stringFuture.then((value) {
+      res = value;
+    });
+    print(res);
+    //List<String> res = [" ", " ", "⠓", "⠑", "⠇", "⠇", "⠕"]; //para probar
+    String aux = "";
+    for (int i = 0; i < res.length; i++) {
+      aux += res[i];
+    }
+    print(aux);
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -26,22 +39,24 @@ class _brailleState extends State<braille> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
+                  padding:
+                  EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text("Texto en Braille",
-                            style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700)),
+                            style: TextStyle(
+                                fontSize: 30, fontWeight: FontWeight.w700)),
                       ])),
               Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
+                  padding:
+                  EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(".::.--.-_:-.-_:.,_.-_._,.",
-                            style: TextStyle(fontSize: 20)),
+                        Text(aux, style: TextStyle(fontSize: 20)),
                       ])),
               Row(
                 children: [
@@ -52,7 +67,8 @@ class _brailleState extends State<braille> {
                       heroTag: const Text('Reproducir Braille'),
                       label: const Text(
                         "Reproducir",
-                        style: const TextStyle(color: Colors.white, fontSize: 30),
+                        style:
+                        const TextStyle(color: Colors.white, fontSize: 30),
                       ),
                       foregroundColor: Colors.white,
                       backgroundColor: Colors.green,
@@ -60,8 +76,7 @@ class _brailleState extends State<braille> {
                         Icons.speaker,
                         size: 70.0,
                       ),
-                      onPressed: () {
-                      },
+                      onPressed: () {},
                     ),
                   ),
                 ],
@@ -75,7 +90,8 @@ class _brailleState extends State<braille> {
                       heroTag: const Text('Volver Principal'),
                       label: const Text(
                         "Volver al menú principal",
-                        style: const TextStyle(color: Colors.white, fontSize: 30),
+                        style:
+                        const TextStyle(color: Colors.white, fontSize: 30),
                       ),
                       foregroundColor: Colors.white,
                       backgroundColor: Colors.green,
