@@ -15,17 +15,16 @@ class _brailleState extends State<braille> {
   List<String> res = [];
   @override
   Widget build(BuildContext context) {
+    //Guardamos la lista de string que esperamos que nos devuelva (Future) la función de text2braille para que cuando llegue guardar su valor en una lista string vacía 
     Future<List<String>> stringFuture = t2b.t2bApiCall();
     stringFuture.then((value) {
       res = value;
     });
-    print(res);
-    //List<String> res = [" ", " ", "⠓", "⠑", "⠇", "⠇", "⠕"]; //para probar
+    //Creamos una variable auxiliar para posteriormente unir las letras traducidas a braille en un solo string
     String aux = "";
     for (int i = 0; i < res.length; i++) {
       aux += res[i];
     }
-    print(aux);
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
