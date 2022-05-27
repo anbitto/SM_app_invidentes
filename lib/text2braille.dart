@@ -12,30 +12,24 @@ import 'package:http/http.dart' as http;
 
 class text2brailleState {
   Future<List<String>> t2bApiCall() async {
+    //Guardamos el texto obtenido
     var frase = globals.resultadoTexto;
-    //var frase = "Hello";
 
-    var user = {};
-    var str = json.encode(user);
-    print(str);
-
+    //Nos conectamos a la API de traductor a braille
     final uri = Uri.parse(
         'https://api.funtranslations.com/translate/braille/unicode.json')
         .replace(queryParameters: {
-      'text': frase,
+      'text': frase, //Introducimos como parametro el texto a traducir
     });
-    final response = await http.get(uri);
+    final response = await http.get(uri); //Esperamos la respuesta
 
+    //Creamos lista string vacía para guardar el resultado final de la traducción
     List<String> res = [];
     if (response.statusCode == 200) {
-      print("Response OK");
-      var data = json.decode(response.body);
-      var trans = data["contents"]["translated"];
-      print(trans);
-      print(trans.runtimeType);
-      res = new List<String>.from(trans);
-      print(res.runtimeType);
-      print(res);
+      print("Response OK"); //Para asegurarnos de que se ha recibido bien la respuesta
+      var data = json.decode(response.body); //Guardamos la información recibida con la respuesta
+      var trans = data["contents"]["translated"]; //Accedemos solo a la traducción a braille
+      res = new List<String>.from(trans); //Pasamos la traducción a braille de lista dinámica a lista string, que es lo que devolverá esta función
     } else {
       print(response.statusCode.toString());
       print(response.body.toString());
