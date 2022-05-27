@@ -1,25 +1,17 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_sound/flutter_sound.dart';
-// import 'package:google_speech/speech_client_authenticator.dart';
 import 'package:google_speech/google_speech.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:loading_indicator/loading_indicator.dart';
+
 import 'dart:io';
 import 'dart:async';
 
-import 'dart:async';
-import 'dart:convert';
-import 'dart:math';
-import 'package:flutter/material.dart';
 import 'package:sm_app_invidente/main.dart';
 import 'package:sm_app_invidente/preview.dart';
 import 'package:sm_app_invidente/globals.dart' as globals;
 
 import 'package:sm_app_invidente/api/api_wrapper.dart';
-
-import 'package:sound_recorder/sound_recorder.dart';
 
 class voz extends StatefulWidget {
   @override
@@ -34,11 +26,18 @@ class _FusionState extends State<voz> {
   final recorder = FlutterSoundRecorder();
   bool isRecorderReady = false;
 
+  // Función encargada de extraer los datos de un archivo .wav
+  // en el formato adecuado para la transmisión a la API
   Future<List<int>> _getAudioContent(String name) async {
-    final path = 'f1.wav';
+    // final path = 'f1.wav';
+    final path = '/storage/emulated/0/Download/f1.wav';
+
     return File(path).readAsBytesSync().toList();
   }
 
+  // Función que conecta con la API de Speech-To-Text
+  // El resultado de la request se almacena el una variable
+  // global de la clase del tipo String llamada content
   void transcribe() async {
     setState(() {
       is_Transcribing = true;
@@ -54,7 +53,8 @@ class _FusionState extends State<voz> {
         sampleRateHertz: 44100,
         languageCode: 'es-ES');
 
-    final audio = await _getAudioContent('test.wav');
+    // final audio = await _getAudioContent('f1.wav');
+    final audio = await _getAudioContent('/storage/emulated/0/Download/f1.wav');
     await speechToText.recognize(config, audio).then((value) {
       setState(() {
         content = value.results
@@ -68,6 +68,7 @@ class _FusionState extends State<voz> {
     });
   }
 
+  // Inicialización de los estados internos del widget
   @override
   void initState() {
     setPermissions();
@@ -75,18 +76,23 @@ class _FusionState extends State<voz> {
     initRecorder();
   }
 
+  // Proceso de eliminación de aquello que no es necesario
+  // renderizar del árbol de widgets
   @override
   void dispose() {
     recorder.closeRecorder();
-
     super.dispose();
   }
 
+  // Función de ejecución de permisos para usar
+  // el almacenamiento del dispositivo
   void setPermissions() async {
     await Permission.manageExternalStorage.request();
     await Permission.storage.request();
   }
 
+  // Función encargadad de la inicialización del
+  // sistema de grabación
   Future initRecorder() async {
     final status = await Permission.microphone.request();
 
@@ -101,16 +107,19 @@ class _FusionState extends State<voz> {
     );
   }
 
+  //Función encargada de iniciar el proceso de grabación de audio
   Future record() async {
     var codecObj = Codec.pcm16WAV;
     if (!isRecorderReady) return;
     await recorder.startRecorder(
       sampleRate: 44100,
       codec: codecObj,
-      toFile: 'f1.wav',
+      // toFile: 'f1.wav',
+      toFile: '/storage/emulated/0/Download/f1.wav',
     );
   }
 
+  //Función encargada de detener el proceso de grabación de audio
   Future stop() async {
     if (!isRecorderReady) return;
 
@@ -122,6 +131,7 @@ class _FusionState extends State<voz> {
     }
   }
 
+  // Función de renderizado de la pantalla
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -142,15 +152,6 @@ class _FusionState extends State<voz> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    // StreamBuilder<RecordingDisposition>(
-                    //   stream: recorder.onProgress,
-                    //   builder: (context, snapshot) {
-                    //     final duration = snapshot.hasData
-                    //         ? snapshot.data!.duration
-                    //         : Duration.zero;
-                    //     return Text('${duration.inSeconds} s');
-                    //   },
-                    // ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.18,
                       width: MediaQuery.of(context).size.width * 1,
@@ -179,24 +180,6 @@ class _FusionState extends State<voz> {
                   ],
                 ),
               ),
-              // Container(
-              //   height: 200,
-              //   width: 300,
-              //   decoration: BoxDecoration(
-              //     border: Border.all(color: Colors.black),
-              //     borderRadius: BorderRadius.circular(20),
-              //   ),
-              //   padding: EdgeInsets.all(5.0),
-              //   child: content == ''
-              //       ? Text(
-              //           'Your text will appear here',
-              //           style: TextStyle(color: Colors.grey),
-              //         )
-              //       : Text(
-              //           content,
-              //           style: TextStyle(fontSize: 20),
-              //         ),
-              // ),
               Row(
                 children: [
                   SizedBox(
@@ -266,12 +249,12 @@ class _FusionState extends State<voz> {
                       disabledColor: Colors.grey,
                       color: Colors.green,
                       onPressed: () {
-                        // globals.resultadoTexto = "Vengo del Dictar";
+                        globals.resultadoTexto = content;
                         Navigator.of(context).push(
                           MaterialPageRoute<void>(
-                             builder: (context) => preview(),
-                           ),
-                         );
+                            builder: (context) => preview(),
+                          ),
+                        );
                       },
                       child: const Text(
                         "Aceptar",

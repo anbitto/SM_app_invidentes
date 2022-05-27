@@ -1,9 +1,9 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:sm_app_invidente/main.dart';
 import 'package:sm_app_invidente/text2braille.dart';
+import 'package:sm_app_invidente/api/api_wrapper.dart';
+import 'package:sm_app_invidente/globals.dart' as globals;
 
 class braille extends StatefulWidget {
   @override
@@ -11,27 +11,24 @@ class braille extends StatefulWidget {
 }
 
 class _brailleState extends State<braille> {
-  final t2b = text2brailleState();
-  List<String> res = [];
+  String brailleStr = "";
+  final api = ApiWrapper();
+  bool is_Playing = false;
+
+  _brailleState() {
+    brailleStr = toBraille();
+  }
+
+  //Función de renderizado de la pantalla
   @override
   Widget build(BuildContext context) {
-    //Guardamos la lista de string que esperamos que nos devuelva (Future) la función de text2braille para que cuando llegue guardar su valor en una lista string vacía 
-    Future<List<String>> stringFuture = t2b.t2bApiCall();
-    stringFuture.then((value) {
-      res = value;
-    });
-    //Creamos una variable auxiliar para posteriormente unir las letras traducidas a braille en un solo string
-    String aux = "";
-    for (int i = 0; i < res.length; i++) {
-      aux += res[i];
-    }
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
           title: const Text(
             'APP INVIDENTES',
             style:
-            TextStyle(fontSize: 25.0, fontFamily: 'Glacial Indifference'),
+                TextStyle(fontSize: 25.0, fontFamily: 'Glacial Indifference'),
           ),
         ),
         body: Column(
@@ -39,7 +36,7 @@ class _brailleState extends State<braille> {
             children: [
               Padding(
                   padding:
-                  EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
+                      EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,12 +47,12 @@ class _brailleState extends State<braille> {
                       ])),
               Padding(
                   padding:
-                  EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
+                      EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(aux, style: TextStyle(fontSize: 20)),
+                        Text(brailleStr, style: TextStyle(fontSize: 20)),
                       ])),
               Row(
                 children: [
@@ -67,7 +64,7 @@ class _brailleState extends State<braille> {
                       label: const Text(
                         "Reproducir",
                         style:
-                        const TextStyle(color: Colors.white, fontSize: 30),
+                            const TextStyle(color: Colors.white, fontSize: 30),
                       ),
                       foregroundColor: Colors.white,
                       backgroundColor: Colors.green,
@@ -75,7 +72,9 @@ class _brailleState extends State<braille> {
                         Icons.speaker,
                         size: 70.0,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        playAudioButtonHandler();
+                      },
                     ),
                   ),
                 ],
@@ -90,7 +89,7 @@ class _brailleState extends State<braille> {
                       label: const Text(
                         "Volver al menú principal",
                         style:
-                        const TextStyle(color: Colors.white, fontSize: 30),
+                            const TextStyle(color: Colors.white, fontSize: 30),
                       ),
                       foregroundColor: Colors.white,
                       backgroundColor: Colors.green,
@@ -110,5 +109,41 @@ class _brailleState extends State<braille> {
                 ],
               ),
             ]));
+  }
+
+  //Función encrgada de gestionar el trigger de la llamada a la API Text-To-Speech
+  void playAudioButtonHandler() {
+    if (!is_Playing) {
+      String content = "";
+
+      if (globals.resultadoTexto != null) content = globals.resultadoTexto!;
+
+      api.ttsApiCall(content, false);
+      setState(() {
+        is_Playing = true;
+      });
+    } else {
+      api.stopPlayer();
+      setState(() {
+        is_Playing = false;
+      });
+    }
+  }
+
+  //Función encrgada de gestionar la llamada a la API de traducción a Braille
+  String toBraille() {
+    final t2b = text2brailleState();
+    List<String> res = [];
+    Future<List<String>> stringFuture = t2b.t2bApiCall();
+
+    stringFuture.then((value) {
+      res = value;
+    });
+
+    String aux = "";
+    for (int i = 0; i < res.length; i++) {
+      aux += res[i];
+    }
+    return aux;
   }
 }
