@@ -140,7 +140,7 @@ class _brailleState extends State<braille> {
             ]));
   }
 
-  //Función encrgada de gestionar el trigger de la llamada a la API Text-To-Speech
+  //Función encargada de gestionar el trigger de la llamada a la API Text-To-Speech
   void playAudioButtonHandler() {
     if (!is_Playing) {
       String content = "";
@@ -159,15 +159,15 @@ class _brailleState extends State<braille> {
     }
   }
 
-  //Función encrgada de gestionar la llamada a la API de traducción a Braille
+  //Función encargada de gestionar la llamada a la API de traducción a Braille
   String toBraille(String text) {
-    String res = "⠓⠕⠇⠁⠀⠃⠥⠑⠝⠁⠎⠀⠞⠁⠗⠙⠑⠎";
-    /*final t2r = raspi();
-    
+    String res = " ";
+    final t2r = raspi();
+
     Future<String> stringFuture = t2r.transRaspi(text);
     stringFuture.then((value) {
       res = value;
-    });*/
+    });
 
     return res;
   }

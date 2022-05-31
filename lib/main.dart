@@ -98,11 +98,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     size: 70.0,
                   ),
                   onPressed: () {
-                    /*Navigator.of(context).push(
+                    Navigator.of(context).push(
                       MaterialPageRoute<void>(
                         builder: (context) => imagen(),
                       ),
-                    );*/
+                    );
                   },
                 ),
               ),

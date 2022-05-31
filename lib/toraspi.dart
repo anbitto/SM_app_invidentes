@@ -13,6 +13,7 @@ import 'package:http/http.dart' as http;
 class raspi {
   String path = 'https://b9ae-84-78-249-140.eu.ngrok.io';
 
+  //Llamada para enviar el texto obtenido.
   void sendRaspi(String text) async {
     final response = await http.post(
       Uri.parse(path + '/print'),
@@ -32,6 +33,7 @@ class raspi {
     }
   }
 
+  //Llamada para obtener el texto escaneado con la cámara.
   void scanRaspi() async {
     final response = await http.get(
       Uri.parse(path + '/scan'),
@@ -48,6 +50,7 @@ class raspi {
     }
   }
 
+  //Llamada para enviar el texto introducido y obtener la traducción en braille.
   Future<String> transRaspi(String text) async {
     final response = await http.post(
       Uri.parse(path + '/translate'),
@@ -58,15 +61,12 @@ class raspi {
         'text': text,
       }),
     );
-    print(text);
 
     String res = "";
     if (response.statusCode == 200) {
       print("/translate");
       print("Response OK");
       res = response.body;
-      print(res);
-      print(res.runtimeType);
     } else {
       print(response.statusCode.toString());
       print(response.body.toString());
