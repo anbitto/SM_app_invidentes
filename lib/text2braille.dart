@@ -21,7 +21,7 @@ class text2brailleState {
     var frase = globals.resultadoTexto;
 
     final uri = Uri.parse(
-        'https://api.funtranslations.com/translate/braille/unicode.json')
+            'https://api.funtranslations.com/translate/braille/unicode.json')
         .replace(queryParameters: {
       'text': frase,
     });
@@ -29,6 +29,7 @@ class text2brailleState {
 
     List<String> res = [];
     if (response.statusCode == 200) {
+      print("/braille");
       print("Response OK");
       var data = json.decode(response.body);
       var trans = data["contents"]["translated"];

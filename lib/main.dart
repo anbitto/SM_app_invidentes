@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sm_app_invidente/imagen.dart';
 import 'package:sm_app_invidente/teclado.dart';
 import 'package:sm_app_invidente/texto.dart';
+import 'package:sm_app_invidente/tutorial.dart';
 import 'package:sm_app_invidente/voz.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:open_file/open_file.dart';
@@ -11,7 +12,6 @@ import 'package:sm_app_invidente/api/api_wrapper.dart';
 void main() {
   runApp(const MyApp());
 }
-
 
 //Esta clase es para enseñar el menú principal, con 4 botones
 //que guían a las diferentes funcionalidades de la app.
@@ -98,11 +98,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     size: 70.0,
                   ),
                   onPressed: () {
-                    Navigator.of(context).push(
+                    /*Navigator.of(context).push(
                       MaterialPageRoute<void>(
                         builder: (context) => imagen(),
                       ),
-                    );
+                    );*/
                   },
                 ),
               ),
@@ -153,6 +153,32 @@ class _MyHomePageState extends State<MyHomePage> {
                     Navigator.of(context).push(
                       MaterialPageRoute<void>(
                         builder: (context) => texto(),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.15,
+                width: MediaQuery.of(context).size.width * 1,
+                child: FloatingActionButton.extended(
+                  heroTag: Text('Imprimir con cámara bot'),
+                  label: Text('Imprimir con cámara bot'),
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.green,
+                  icon: const Icon(
+                    Icons.local_print_shop_rounded,
+                    size: 70.0,
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (context) => TutorialScreen(),
                       ),
                     );
                   },

@@ -2,8 +2,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:sm_app_invidente/main.dart';
 import 'package:sm_app_invidente/text2braille.dart';
+import 'package:sm_app_invidente/toraspi.dart';
 import 'package:sm_app_invidente/api/api_wrapper.dart';
 import 'package:sm_app_invidente/globals.dart' as globals;
+import 'package:http/http.dart' as http;
 
 class braille extends StatefulWidget {
   @override
@@ -13,10 +15,12 @@ class braille extends StatefulWidget {
 class _brailleState extends State<braille> {
   String brailleStr = "";
   final api = ApiWrapper();
+  final t2r = raspi();
+  String resTextoStr = globals.resultadoTexto ?? 'default';
   bool is_Playing = false;
 
   _brailleState() {
-    brailleStr = toBraille();
+    brailleStr = toBraille(resTextoStr);
   }
 
   //Función de renderizado de la pantalla
@@ -85,6 +89,31 @@ class _brailleState extends State<braille> {
                     height: MediaQuery.of(context).size.height * 0.18,
                     width: MediaQuery.of(context).size.width * 1,
                     child: FloatingActionButton.extended(
+                      heroTag: const Text('Imprimir Braille'),
+                      label: const Text(
+                        "Imprimir",
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 30),
+                      ),
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.green,
+                      icon: const Icon(
+                        Icons.local_print_shop_rounded,
+                        size: 70.0,
+                      ),
+                      onPressed: () {
+                        t2r.sendRaspi(resTextoStr);
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.18,
+                    width: MediaQuery.of(context).size.width * 1,
+                    child: FloatingActionButton.extended(
                       heroTag: const Text('Volver Principal'),
                       label: const Text(
                         "Volver al menú principal",
@@ -131,19 +160,15 @@ class _brailleState extends State<braille> {
   }
 
   //Función encrgada de gestionar la llamada a la API de traducción a Braille
-  String toBraille() {
-    final t2b = text2brailleState();
-    List<String> res = [];
-    Future<List<String>> stringFuture = t2b.t2bApiCall();
-
+  String toBraille(String text) {
+    String res = "⠓⠕⠇⠁⠀⠃⠥⠑⠝⠁⠎⠀⠞⠁⠗⠙⠑⠎";
+    /*final t2r = raspi();
+    
+    Future<String> stringFuture = t2r.transRaspi(text);
     stringFuture.then((value) {
       res = value;
-    });
+    });*/
 
-    String aux = "";
-    for (int i = 0; i < res.length; i++) {
-      aux += res[i];
-    }
-    return aux;
+    return res;
   }
 }

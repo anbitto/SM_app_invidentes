@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:sm_app_invidente/globals.dart';
+import 'package:sm_app_invidente/toraspi.dart';
+import 'package:sm_app_invidente/preview.dart';
 import 'package:sm_app_invidente/tutorial_list_pages.dart';
 
 class TutorialScreen extends StatefulWidget {
@@ -105,21 +108,22 @@ class _TutorialScreenState extends State<TutorialScreen> {
     );
   }
 
-  Widget? buildButton(pageChangedInt) {
-    // CAMBIAR EL ? Y DESCOMENTAR CUANDO SE TENGA LA PANTALLA A LA QUE IR
-    /*return Visibility(
-        visible: pageChangedInt == 3,
+  Widget buildButton(pageChangedInt) {
+    final t2r = raspi();
+    return Visibility(
+        visible: pageChangedInt == 1,
         maintainState: true,
         maintainAnimation: true,
         maintainSize: true,
         child: ElevatedButton(
-            child: Text('Cerrar'),
-            onPressed: () => Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => new TabsScreen(0),
+            child: Text('Escanear'),
+            onPressed: () {
+              t2r.scanRaspi();
+              Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (context) => preview(),
                 ),
-                (r) => false)));
-        */
+              );
+            }));
   }
 }
